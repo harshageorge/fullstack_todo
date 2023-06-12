@@ -14,8 +14,21 @@ connection.connect(function(err) {
   console.log("Connected to the database!");
   let query ="CREATE TABLE IF NOT EXISTS todos (id INT NOT NULL DEFAULT 1, title VARCHAR(100) NOT NULL, status TINYINT NOT NULL, PRIMARY KEY (id))";
   connection.query(query, (err, result)=>{
-      if (err) throw err;
-      console.log(result)
+    if (err) {
+        // If an error occurred, send a generic server failure
+        console.log(`not successful! ${err}`)
+        connection.destroy();
+
+    } else {
+        //If successful, inform as such
+        console.log(`Query was successful, ${result}`)
+
+        //send json file to end user if using an API
+        res.json(result)
+
+        //destroy the connection thread
+        connection.destroy();
+    }
   })
   });
   
