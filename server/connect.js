@@ -22,10 +22,6 @@ connection.connect(function(err) {
     } else {
         //If successful, inform as such
         console.log(`Query was successful, ${result}`)
-
-        //send json file to end user if using an API
-        res.json(result)
-
         //destroy the connection thread
         connection.destroy();
     }
